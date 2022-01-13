@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { ActionType } from "../Types";
 import { saveToLocalStorage } from "../utils/localStorage";
 
@@ -13,9 +12,7 @@ export const finishShowOpenDialog = (paths: string[]) => ({
   },
 });
 
-export const loadSnailyCADDirectory = () => async (dispatch: Dispatch) => {
-  dispatch(requestShowOpenDialog());
-
+export const loadSnailyCADDirectory = async () => {
   const result = await window.myAPI.loadSnailyCADDirectory({
     title: "Open SnailyCAD's folder",
     message: "Open SnailyCAD's folder",
@@ -23,7 +20,8 @@ export const loadSnailyCADDirectory = () => async (dispatch: Dispatch) => {
   });
 
   const [path] = result.filePaths;
+  if (!path) return null;
   saveToLocalStorage(path);
 
-  dispatch(finishShowOpenDialog([path]));
+  return path;
 };

@@ -1,12 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import reduxThunk from "redux-thunk";
-import { reducer as RootReducer } from "./reducers";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Theme } from "./Theme";
-import { Container as DialogForm } from "./containers/DialogForm";
+import { MainContainer } from "./containers/MainContainer";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -18,6 +14,14 @@ const GlobalStyle = createGlobalStyle`
     color: ${Theme.colors.text};
     font-family: system-ui, sans-serif;
     background-color: ${Theme.colors.white};
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
   }
 
   .app {
@@ -38,15 +42,11 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 window.addEventListener("load", () => {
-  const store = createStore(RootReducer, applyMiddleware(reduxThunk));
-
   render(
-    <Provider store={store}>
-      <ThemeProvider theme={Theme}>
-        <GlobalStyle />
-        <DialogForm />
-      </ThemeProvider>
-    </Provider>,
+    <ThemeProvider theme={Theme}>
+      <GlobalStyle />
+      <MainContainer />
+    </ThemeProvider>,
     document.querySelector(".app"),
   );
 });
