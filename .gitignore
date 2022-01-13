@@ -1,0 +1,10 @@
+node_modules/
+dist/
+esdoc/
+
+*.
+*.log
+*.map
+*.d.ts
+src/assets/*.js
+!.gitignore
