@@ -19,30 +19,13 @@ import { join } from "node:path";
  */
 const onShowOpenDialog = async (ev: IpcMainInvokeEvent, options: OpenDialogOptions) => {
   const win = BrowserWindow.fromWebContents(ev.sender);
-  if (win) {
-    const result = await dialog.showOpenDialog(win, options);
-    return validateLocalDir(result);
+
+  if (!win) {
+    throw new Error("Message sender window does not exist");
   }
-  throw new Error("Message sender window does not exist");
 
-  async function validateLocalDir(data: OpenDialogReturnValue) {
-    const [path] = data.filePaths;
-
-    let packageJson;
-    try {
-      packageJson = JSON.parse(readFileSync(join(path, "package.json"), "utf8"));
-    } catch {
-      return new Error("Could not read this folder. Are you sure this is the correct location?");
-    }
-
-    if (packageJson.name !== "snailycad") {
-      return new Error(
-        "This folder does not include the source code to SnailyCADv4. Make sure the folder is the root directory of SnailyCADv4.",
-      );
-    }
-
-    return data;
-  }
+  const result = await dialog.showOpenDialog(win, options);
+  return _validateLocalDir(result);
 };
 
 /**
@@ -79,7 +62,7 @@ export const initializeIpcEvents = () => {
   }
   initialized = true;
 
-  ipcMain.handle(IPCKey.ShowOpenDialog, onShowOpenDialog);
+  ipcMain.handle(IPCKey.LoadLocalDirectory, onShowOpenDialog);
   ipcMain.handle(IPCKey.ShowMessageBox, onShowMessageBox);
   ipcMain.handle(IPCKey.ShowURL, onShowURL);
 };
@@ -89,10 +72,29 @@ export const initializeIpcEvents = () => {
  */
 export const releaseIpcEvents = () => {
   if (initialized) {
-    ipcMain.removeAllListeners(IPCKey.ShowOpenDialog);
+    ipcMain.removeAllListeners(IPCKey.LoadLocalDirectory);
     ipcMain.removeAllListeners(IPCKey.ShowMessageBox);
     ipcMain.removeAllListeners(IPCKey.ShowURL);
   }
 
   initialized = false;
 };
+
+async function _validateLocalDir(data: OpenDialogReturnValue) {
+  const [path] = data.filePaths;
+
+  let packageJson;
+  try {
+    packageJson = JSON.parse(readFileSync(join(path, "package.json"), "utf8"));
+  } catch {
+    return new Error("Could not read this folder. Are you sure this is the correct location?");
+  }
+
+  if (packageJson.name !== "snailycad") {
+    return new Error(
+      "This folder does not include the source code to SnailyCADv4. Make sure the folder is the root directory of SnailyCADv4.",
+    );
+  }
+
+  return data;
+}

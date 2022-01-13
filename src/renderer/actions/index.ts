@@ -1,3 +1,3 @@
 export * from "./showURL";
-export * from "./showOpenDialog";
+export * from "./loadSnailyCADDirectory";
 export * from "./showMessageBox";

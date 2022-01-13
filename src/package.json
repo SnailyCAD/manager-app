@@ -1,8 +1,6 @@
 {
-  "name": "electron-starter",
-  "description": "Electron Starter Kit.",
-  "version": "2.0.0",
-  "author": "akabeko",
+  "name": "snailycad-manager-app",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "assets/main.js",
   "keywords": [

@@ -9,7 +9,7 @@ import { IPCKey } from "./Constants";
 
 contextBridge.exposeInMainWorld("myAPI", {
   loadSnailyCADDirectory: async (options: OpenDialogOptions): Promise<OpenDialogReturnValue> =>
-    ipcRenderer.invoke(IPCKey.ShowOpenDialog, options),
+    ipcRenderer.invoke(IPCKey.LoadLocalDirectory, options),
 
   showMessageBox: async (options: MessageBoxOptions): Promise<MessageBoxReturnValue> =>
     ipcRenderer.invoke(IPCKey.ShowMessageBox, options),

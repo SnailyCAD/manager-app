@@ -1,16 +1,3 @@
-import { ActionType } from "../Types";
-
-export const requestShowMessageBox = () => ({
-  type: ActionType.RequestShowMessageBox as ActionType.RequestShowMessageBox,
-});
-
-export const finishShowMessageBox = (button: number) => ({
-  type: ActionType.FinishShowMessageBox as ActionType.FinishShowMessageBox,
-  payload: {
-    button,
-  },
-});
-
 /**
  * show the message box.
  */
