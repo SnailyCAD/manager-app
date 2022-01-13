@@ -5,12 +5,11 @@ import { Theme } from "./Theme";
 import { MainContainer } from "./containers/MainContainer";
 
 const GlobalStyle = createGlobalStyle`
+
   html,
   body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
     color: ${Theme.colors.text};
     font-family: system-ui, sans-serif;
     background-color: ${Theme.colors.white};
@@ -24,9 +23,8 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.3rem;
   }
 
-  .app {
-    width: 100%;
-    height: 100%;
+  #app {
+    min-height: 100vh;
   }
 
   @font-face {
@@ -47,6 +45,6 @@ window.addEventListener("load", () => {
       <GlobalStyle />
       <MainContainer />
     </ThemeProvider>,
-    document.querySelector(".app"),
+    document.getElementById("app"),
   );
 });

@@ -15,15 +15,14 @@
     "url": "git+https://github.com/akabekobeko/examples-electron.git"
   },
   "config": {
-    "app": "Starter",
+    "app": "SnailyCADv4_Manager_App",
     "appCompanyName": "Company",
-    "appLegalCopyright": "Copylight (C) USERNAME, All right reserved.",
     "appFileDescription": "Electron application"
   },
   "scripts": {
     "start": "npm run watch",
     "app": "electron --inspect=5858 src/",
-    "tsc": "tsc --rootDir ./src/ --noEmit --skipLibCheck",
+    "tsc": "tsc --noEmit --skipLibCheck",
     "build:js-main": "webpack --env main --mode development",
     "build:js-preload": "webpack --env preload --mode development",
     "build:js-renderer": "webpack --mode development",
@@ -53,9 +52,6 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
-    "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
@@ -63,7 +59,6 @@
     "@casper124578/eslint-config-react": "^2.2.1",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
-    "@types/react-redux": "^7.1.20",
     "@types/styled-components": "^5.1.17",
     "@types/webpack": "^5.28.0",
     "cpx": "^1.5.0",
@@ -72,7 +67,6 @@
     "electron": "^16.0.4",
     "electron-packager": "^15.4.0",
     "eslint": "^8.6.0",
-    "ifdef-loader": "^2.3.2",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.6",

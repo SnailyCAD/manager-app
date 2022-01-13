@@ -6,8 +6,11 @@ import {
   OpenDialogOptions,
   MessageBoxOptions,
   IpcMainInvokeEvent,
+  OpenDialogReturnValue,
 } from "electron";
 import { IPCKey } from "../common/Constants";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 /**
  * occurs when show of a file open dialog is requested.
@@ -17,9 +20,29 @@ import { IPCKey } from "../common/Constants";
 const onShowOpenDialog = async (ev: IpcMainInvokeEvent, options: OpenDialogOptions) => {
   const win = BrowserWindow.fromWebContents(ev.sender);
   if (win) {
-    return dialog.showOpenDialog(win, options);
+    const result = await dialog.showOpenDialog(win, options);
+    return validateLocalDir(result);
   }
   throw new Error("Message sender window does not exist");
+
+  async function validateLocalDir(data: OpenDialogReturnValue) {
+    const [path] = data.filePaths;
+
+    let packageJson;
+    try {
+      packageJson = JSON.parse(readFileSync(join(path, "package.json"), "utf8"));
+    } catch {
+      return new Error("Could not read this folder. Are you sure this is the correct location?");
+    }
+
+    if (packageJson.name !== "snailycad") {
+      return new Error(
+        "This folder does not include the source code to SnailyCADv4. Make sure the folder is the root directory of SnailyCADv4.",
+      );
+    }
+
+    return data;
+  }
 };
 
 /**

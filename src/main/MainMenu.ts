@@ -37,15 +37,6 @@ const createTemplate = (): MenuItemConstructorOptions[] => {
         { role: "pasteandmatchstyle" },
         { role: "delete" },
         { role: "selectall" },
-        ...(isMac
-          ? [
-              { type: "separator" },
-              {
-                label: "Speech",
-                submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }],
-              },
-            ]
-          : []),
       ],
     },
     {
@@ -53,9 +44,7 @@ const createTemplate = (): MenuItemConstructorOptions[] => {
       submenu: [
         { role: "reload" },
         { role: "forcereload" },
-        // / #if env == 'DEBUG'
         { role: "toggledevtools" },
-        // / #endif
         { type: "separator" },
         { role: "resetzoom" },
         { role: "zoomin" },
@@ -82,9 +71,15 @@ const createTemplate = (): MenuItemConstructorOptions[] => {
       role: "help",
       submenu: [
         {
-          label: "Learn More",
+          label: "SnailyCADv4 documentation",
           click() {
-            require("electron").shell.openExternal("https://electronjs.org");
+            require("electron").shell.openExternal("https://cad-docs.netlify.app");
+          },
+        },
+        {
+          label: "SnailyCADv4 GitHub",
+          click() {
+            require("electron").shell.openExternal("https://github.com/SnailyCAD/snaily-cadv4");
           },
         },
       ],

@@ -3,7 +3,6 @@
  */
 export enum IPCKey {
   ShowOpenDialog = "ShowOpenDialog",
-  ShowSaveDialog = "ShowSaveDialog",
   ShowMessageBox = "ShowMessageBox",
   ShowURL = "ShowURL",
 }

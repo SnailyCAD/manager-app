@@ -1,15 +1,24 @@
 import * as React from "react";
 import { loadSnailyCADDirectory } from "../actions";
 import { Button } from "../components/Button";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { loadFromLocalStorage } from "../utils/localStorage";
 
 export function MainContainer() {
   const [localDir, setLocalDir] = React.useState(() => loadFromLocalStorage());
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
 
   async function handleChangeDirectory() {
     const dir = await loadSnailyCADDirectory();
+
+    if (dir instanceof Error) {
+      setErrors((p) => ({ ...p, dir: dir.message }));
+      return;
+    }
+
     if (dir) {
       setLocalDir(dir);
+      setErrors({});
     }
   }
 
@@ -35,6 +44,7 @@ export function MainContainer() {
         </p>
 
         <Button onClick={handleChangeDirectory}>Change Directory</Button>
+        {errors.dir && <ErrorMessage>{errors.dir}</ErrorMessage>}
       </section>
 
       <section id="cad_state">

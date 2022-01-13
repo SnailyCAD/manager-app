@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { ActionType } from "../Types";
 
 export const requestShowMessageBox = () => ({
@@ -15,9 +14,7 @@ export const finishShowMessageBox = (button: number) => ({
 /**
  * show the message box.
  */
-export const showMessageBox = () => async (dispatch: Dispatch) => {
-  dispatch(requestShowMessageBox());
-
+export const showMessageBox = () => async () => {
   const result = await window.myAPI.showMessageBox({
     type: "info",
     title: "Information",
@@ -25,5 +22,5 @@ export const showMessageBox = () => async (dispatch: Dispatch) => {
     detail: "The quick brown fox jumps over the lazy dog.",
   });
 
-  dispatch(finishShowMessageBox(result.response));
+  return result;
 };

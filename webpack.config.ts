@@ -39,12 +39,6 @@ export default (env: any, argv: Configuration) => {
                 transpileOnly: true,
               },
             },
-            {
-              loader: "ifdef-loader",
-              options: {
-                env: PROD ? "PRODUCTION" : "DEBUG",
-              },
-            },
           ],
         },
       ],
