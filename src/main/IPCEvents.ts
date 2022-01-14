@@ -83,6 +83,10 @@ export const releaseIpcEvents = () => {
 async function _validateLocalDir(data: OpenDialogReturnValue) {
   const [path] = data.filePaths;
 
+  if (data.canceled) {
+    return data;
+  }
+
   let packageJson;
   try {
     packageJson = JSON.parse(readFileSync(join(path, "package.json"), "utf8"));

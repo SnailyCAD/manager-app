@@ -9,10 +9,11 @@ const StyledButton = styled.button`
   display: inline-block;
   padding: 0.3em 0.5em;
   border-radius: 0.2em;
-  border: solid 1px ${(props) => props.theme.colors.blue};
+  border: solid 1px ${(props) => props.theme.colors.grayDarkness};
   color: ${(props) => props.theme.colors.white};
-  background-color: ${(props) => props.theme.colors.blue};
+  background-color: ${(props) => props.theme.colors.grayDarkness};
   font-size: 1rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 `;
 
 /**

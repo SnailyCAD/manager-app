@@ -7,6 +7,8 @@ export async function loadSnailyCADDirectory() {
     properties: ["openDirectory"],
   });
 
+  if (result.canceled) return null;
+
   if (result instanceof Error) {
     return result as Error;
   }

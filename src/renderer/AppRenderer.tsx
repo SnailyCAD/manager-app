@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     color: ${Theme.colors.text};
     font-family: system-ui, sans-serif;
-    background-color: ${Theme.colors.white};
+    background-color: ${Theme.colors.grayDark};
   }
 
   h1 {

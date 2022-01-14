@@ -19,9 +19,7 @@ declare global {
  */
 export type MyAPI = {
   /**
-   * shows the file open dialog.
-   * @param options Options of the showOpenDialog API on Electron.
-   * @returns Result of the dialog operation.
+   * change the directory of SnailyCAD.
    */
   loadSnailyCADDirectory: (options: OpenDialogOptions) => Promise<OpenDialogReturnValue>;
 
